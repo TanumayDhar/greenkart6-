@@ -7,7 +7,7 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features="C:\\Users\\tanumay123\\Desktop\\Cucumber\\Workspace_photon\\GreenKart6\\src\\test\\java\\features",
-glue="StepDefinations", monochrome=true,tags= {"@Smoke,@Sanity,@Regression"},plugin= {"pretty","html:target/cucumberReport","json:target/cucumber.json","junit:target/cukes.xml"})
+glue="StepDefinations", monochrome=true,tags= {"@Smoke"},plugin= {"pretty","html:target/cucumberReport","json:target/cucumber.json","junit:target/cukes.xml"})
 public class runner {
 
 }

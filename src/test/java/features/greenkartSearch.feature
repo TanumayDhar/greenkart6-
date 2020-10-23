@@ -1,4 +1,5 @@
-#Sanity scenario added
+#POM integrated with jenkins
+
 Feature: Search for vegetables and place order in the application.
 
   Background: 
