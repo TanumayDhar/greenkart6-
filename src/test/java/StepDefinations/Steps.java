@@ -1,12 +1,17 @@
 package StepDefinations;
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import Base.BaseClass;
+
 import PageObjects.AddToCart;
+import PageObjects.CheckOut;
 import PageObjects.HomePage;
+import PageObjects.ProccedToBuy;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,98 +23,97 @@ public class Steps {
 	public WebDriver driver;
 	HomePage hp;
 	AddToCart ad;
+	CheckOut ch;
+	ProccedToBuy pb;
 
-
+	//from baseClass
 	@Given("^User navigated to the GreenKart landing page$")
 	public void user_navigated_to_the_greenkart_landing_page() throws Throwable {
 
 		driver=BaseClass.getDriver();
 
 	}
-
+	//from HomePage
 	@When("^user searched for \"([^\"]*)\" vegetable$")
 	public void user_searched_for_something_vegetable(String cucumber) throws Throwable {
 
 		hp=new HomePage(driver);
 		hp.getSearch().sendKeys(cucumber);
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 	}
-
+	//from HomePage
 	@Then("^\"([^\"]*)\" results are displayed$")
 	public void something_results_are_displayed(String strArg1 ) throws Throwable {
 
-		/*String veg=driver.findElement(By.cssSelector("h4.product-name")).getText();
-		System.out.println(veg);
-		String Expected ="Cucumber - 1 Kg";
-		if(veg==Expected) {
+		Thread.sleep(2000);
 
-			System.out.println("Search results are displayed");
-		}else
-		{
-			System.out.println("Search results are not displayed");
-		}*/
+		Assert.assertTrue(hp.verifyDisplayResults().getText().contains(strArg1));
 
-		Assert.assertTrue(driver.findElement(By.cssSelector("h4.product-name")).getText().contentEquals(strArg1));
 
 	}
+	//From AddToCart
 	@And("^added items to cart$")
 	public void added_items_to_cart() throws Throwable {
-		
+		Thread.sleep(2000);
 		ad=new AddToCart(driver);
 		ad.addQuantity().click();
 		ad.addToCart().click();
 
 	}
+	//From checkOut
 	@Then("^verify selected \"([^\"]*)\" items are displayed in check out page$")
 	public void verify_selected_something_items_are_displayed_in_check_out_page(String strArg1) throws Throwable {
+
 		Thread.sleep(2000);
-		Assert.assertTrue( driver.findElement(By.cssSelector("p.product-name")).getText().contains(strArg1));
+		Assert.assertTrue(ch.itemDisplayCheckOut().getText().contains(strArg1));
+
+
 	}
 
-
+	//From CheckOut
 	@And("^user proceed to checkout page for purchase$")
 	public void user_proceed_to_checkout_page_for_purchase() throws InterruptedException {
 
-		driver.findElement(By.xpath("//*[@id=\"root\"]/div/header/div/div[3]/a[4]/img")).click();
+		ch=new CheckOut(driver);
+		ch.cartIconClick().click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//button[contains(text(),'PROCEED TO CHECKOUT')]")).click();
-
+		ch.proceedToCheckOut().click();
 	}
-
+	//From CheckOut
 	@And("^user clicked on place order$")
 	public void user_clicked_on_place_order() throws Throwable {
 
-		driver.findElement(By.xpath("//button[contains(text(),'Place Order')]")).click();
+		ch.proceedOrder().click();
 
 	}
-
+	//From ProceedToBuy
 	@And("^user select country as \"([^\\\"]*)\"")
 	public void user_select_country_as_australia(String arg) throws Throwable {
-
-		WebElement web=driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/div/select"));
-
-		Select country= new Select(web);
-		country.selectByVisibleText(arg);
 		Thread.sleep(2000);
+		pb=new ProccedToBuy(driver);
+
+		Thread.sleep(2000);
+		Select country= new Select(pb.ChooseCountry());
+		country.selectByVisibleText(arg);
+
 
 
 	}
-
+	//From ProceedToBuy
 	@And("^clicked on check box and proceed for order$")
 	public void clicked_on_check_box_and_proceed_for_order() throws Throwable {
-
-		driver.findElement(By.xpath("//input[@class='chkAgree']")).click();
 		Thread.sleep(2000);
-		driver.findElement(By.xpath("//*[@id=\"root\"]/div/div/div/div/button")).click();
-		Thread.sleep(3000);
+		pb.selectTermsCond().click();
+
+		pb.clickButton().click();
+
 
 	}
-
+	//from HomePage
 	@Then("^verify order successfull.$")
 	public void verify_order_successfull() throws Throwable {
-
-		String actual = "GreenKart - veg and fruits kart";
-		Assert.assertEquals(actual, driver.getTitle());
+		Thread.sleep(3000);
+		hp.veriFyOrderScuccess();
 
 
 	}
