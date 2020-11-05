@@ -6,10 +6,12 @@
 	<artifactId>GreenKart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<properties>
-		<sonar.sources>src/main/java,src/main/webapp</sonar.sources>
-		<sonar.exclusions>**/*Bean.java,src/main/java/org/sonar/*</sonar.exclusions>
 
+
+	<properties>
+
+		<sonar.exclusions>org/binarytherapy/generated/**/*,
+			**/GuiceBindComposer.java</sonar.exclusions>
 	</properties>
 
 	<build>
