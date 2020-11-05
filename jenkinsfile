@@ -23,6 +23,7 @@
              
           
        			echo 'Building the application...'
+			bat 'mvn clean package sonar:sonar'
                 
                 
 				}
