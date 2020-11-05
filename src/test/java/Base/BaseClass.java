@@ -26,7 +26,7 @@ public class BaseClass {
 		driver.get(prop.getProperty("URL"));
 
 
-
+		//Test of sonarqube
 		return driver;
 
 	}
