@@ -5,6 +5,11 @@
 	<groupId>com.greenkart</groupId>
 	<artifactId>GreenKart</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<sonar.sources>src/main/java,src/main/webapp</sonar.sources>
+	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
