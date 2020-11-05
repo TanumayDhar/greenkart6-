@@ -8,6 +8,8 @@
 
 	<properties>
 		<sonar.sources>src/main/java,src/main/webapp</sonar.sources>
+		<sonar.exclusions>**/*Bean.java,src/main/java/org/sonar/*</sonar.exclusions>
+
 	</properties>
 
 	<build>
